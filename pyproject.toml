@@ -1,0 +1,29 @@
+[project]
+name = "bd-crewai-module"
+version = "0.1.0"
+description = "bd-crewai-module using crewAI"
+authors = [{ name = "Brijesh K Dhaker", email = "brijeshdhaker@gmail.com" }]
+requires-python = ">=3.10,<3.14"
+dependencies = [
+    "crewai[tools]==1.14.3"
+]
+
+[project.scripts]
+bd_crewai_module = "bd_crewai_module.main:run"
+bd_crewai_run_crew = "bd_crewai_module.main:run"
+bd_crewai_train = "bd_crewai_module.main:train"
+bd_crewai_replay = "bd_crewai_module.main:replay"
+bd_crewai_test = "bd_crewai_module.main:test"
+bd_crewai_run_with_trigger = "bd_crewai_module.main:run_with_trigger"
+mysql_crew_chat = "mysql_crew_chat.main:run"
+mysql_crew_run = "mysql_crew_chat.main:run"
+mysql_crew_train = "mysql_crew_chat.main:train"
+mysql_crew_replay = "mysql_crew_chat.main:replay"
+mysql_crew_test = "mysql_crew_chat.main:test"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.crewai]
+type = "crew"
