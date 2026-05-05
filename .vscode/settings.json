@@ -4,28 +4,28 @@
     "python-envs.defaultPackageManager": "ms-python.python:conda",
     "python-envs.pythonProjects": [],
     "python.autoComplete.extraPaths": [
-        "${workspaceFolder}/src"
+        "${workspaceFolder}/src/main/py"
     ],
     "python.analysis.typeCheckingMode": "basic",
     "python.analysis.autoImportCompletions": true,
     "python.analysis.extraPaths": [
-        "${workspaceFolder}/src"
+        "${workspaceFolder}/src/main/py"
     ],
     "jupyter.notebookFileRoot": "${workspaceFolder}/notebooks",
     "python.terminal.useEnvFile": true,
     "python.terminal.activateEnvironment": true,
     "terminal.integrated.env.linux": {
-        "PYTHONPATH": "${workspaceFolder}/src:${env:PYTHONPATH}"
+        "PYTHONPATH": "${workspaceFolder}/src/main/py:${env:PYTHONPATH}"
     },
     "python.testing.autoTestDiscoverOnSaveEnabled": true,
-    "python.testing.cwd": "${workspaceFolder}/test",
+    "python.testing.cwd": "${workspaceFolder}/src/test/py",
     "python.testing.pytestEnabled": false,
     "python.testing.pytestArgs": [
-        "${workspaceFolder}/test"
+        "${workspaceFolder}/src/test/py"
     ],
     "python.testing.unittestEnabled": true,
     "python.testing.unittestArgs": [
-        "-v", "-s", "${workspaceFolder}/test", "-p", "Test*.py"
+        "-v", "-s", "${workspaceFolder}/src/test/py", "-p", "Test*.py"
     ],
     "postman.settings.dotenv-detection-notification-visibility": false,
     "chat.mcp.discovery.enabled": {
@@ -34,5 +34,4 @@
         "cursor-global": true,
         "cursor-workspace": true
     }
-
 }
