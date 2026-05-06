@@ -43,6 +43,7 @@ bitsandbytes
 accelerate
 pypdf
 pymupdf
+pdfplumber
 faiss-cpu
 python-dotenv
 typesense

@@ -47,7 +47,7 @@ class ToolRagCrew:
     def content_task(self) -> Task:
         return Task(
             config=self.tasks_config['content_task'],  # type: ignore[index]
-            output_file='outputs/rag_crew/report.md'
+            output_file='outputs/rag_crew/ToolRagCrewReport.md'
         )
 
     @crew

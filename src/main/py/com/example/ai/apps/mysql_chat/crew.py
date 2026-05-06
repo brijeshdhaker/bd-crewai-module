@@ -1,6 +1,6 @@
 from crewai import Agent, Crew, Process, Task, LLM
 from crewai.project import CrewBase, agent, crew, task
-from com.example.ai.tools.mysql_tool import SQLQueryTool
+from com.example.ai.tools.MySQLQueryTool import SQLQueryTool
 
 @CrewBase
 class ChatWithMysql():

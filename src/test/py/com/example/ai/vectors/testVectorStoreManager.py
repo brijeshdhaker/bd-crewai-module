@@ -4,7 +4,9 @@ from langchain_text_splitters import RecursiveCharacterTextSplitter
 from langchain_community.vectorstores import FAISS
 from pathlib import Path
 import os
-vectorstore = VectorStoreManager.getVectorStore(type="faissdb")
+
+#
+vectorstore = VectorStoreManager.getVectorStore(type="faissdb", embeddings='embeddings')
 
 # douments = LoadManager.from_directory("documents/pdfs", inclusions=['pdf'])
 # print(f"[*INFO] Total loaded documents: {len(douments)}")
