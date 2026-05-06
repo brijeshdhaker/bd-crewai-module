@@ -3,7 +3,7 @@ from crewai.project import CrewBase, agent, crew, task
 from crewai.agents.agent_builder.base_agent import BaseAgent
 from crewai.knowledge.source.pdf_knowledge_source import PDFKnowledgeSource
 from typing import List
-
+from com.example.ai.config import _embedder_config_st
 @CrewBase
 class PDFKnowledgeCrew:
 
@@ -16,6 +16,7 @@ class PDFKnowledgeCrew:
 
     def get_knowledge_sources(self):
         if self.pdf_source is None:
+
             self.pdf_source = PDFKnowledgeSource(file_paths=self.pdf_paths)
         return self.pdf_source
 
@@ -51,11 +52,13 @@ class PDFKnowledgeCrew:
 
     @crew
     def crew(self) -> Crew:
-
+        from crewai.rag.embeddings.factory import build_embedder
+        #_embedder_st = build_embedder(_embedder_config_st)
         return Crew(
             agents=self.agents,
             tasks=self.tasks,
             process=Process.sequential,
             verbose=True,
-            #knowledge_sources=[self.get_knowledge_sources()]
+            knowledge_sources=[self.get_knowledge_sources()],
+            embedder=_embedder_config_st
         )
