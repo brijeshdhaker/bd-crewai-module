@@ -10,6 +10,7 @@ from sentence_transformers import SentenceTransformer
 from com.example.ai.embedding.EmbeddingManager import EmbeddingManager
 from com.example.ai.loader.LoadManager import LoadManager
 from com.example.ai.vectors.VectorStore import VectorStore
+from langchain_core.vectorstores import VectorStore
 import chromadb
 from chromadb.config import Settings
 import uuid

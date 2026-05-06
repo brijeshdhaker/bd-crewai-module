@@ -31,7 +31,8 @@ def process_document(text):
             vectorstore = Chroma.from_documents(
                 documents=docs,
                 embedding=embeddings,
-                collection_name="research_papers"
+                collection_name="research_papers",
+                persist_directory=f"{os.environ["WORK_DIR"]}/storage/chromadb"
             )
             return vectorstore
 
@@ -39,8 +40,9 @@ def process_document(text):
             print(f"WARNING - ChromaDB failed, trying FAISS: {str(chroma_error)}")
             vectorstore = FAISS.from_documents(
                 documents=docs,
-                embedding=embeddings
+                embedding=embeddings,
             )
+            vectorstore.save_local(f"{os.environ["WORK_DIR"]}/storage/faissdb")
             return vectorstore            
 
     except Exception as e:

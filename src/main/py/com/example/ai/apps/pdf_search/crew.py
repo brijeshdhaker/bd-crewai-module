@@ -148,3 +148,6 @@ rag_crew = Crew(
     verbose=True,
  
 )
+
+inputs ={"question":"Does the ESOP supplement the salary of an employee?"}
+result = rag_crew.kickoff(inputs=inputs)

@@ -37,7 +37,7 @@
       "justMyCode": false
     },
     {
-      "name": "Test & Debug : bd-notebooks-module",
+      "name": "Test & Debug : bd-crewai-module",
       "type": "debugpy",
       "request": "launch",
       "purpose": [

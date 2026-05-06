@@ -1,4 +1,8 @@
+from ast import match_case
 import os
+from langchain_chroma import Chroma
+from langchain_community.vectorstores import FAISS
+
 import numpy as np
 from sentence_transformers import SentenceTransformer
 import chromadb
@@ -10,10 +14,18 @@ from sklearn.metrics.pairwise import cosine_similarity
 from com.example.ai.loader.LoadManager import LoadManager
 from com.example.ai.embedding.EmbeddingManager import EmbeddingManager
 from langchain_text_splitters import RecursiveCharacterTextSplitter
+from langchain_core.vectorstores import VectorStore
+from langchain_huggingface import HuggingFaceEmbeddings
+import faiss
+from langchain_community.docstore.in_memory import InMemoryDocstore
+from pathlib import Path
+from langchain_classic.storage import LocalFileStore
+from langchain_core.documents import Document
+
 class VectorStoreManager:
     """Manages document embeddings in a ChromaDB vector store"""
     
-    def __init__(self, 
+    def __init__(self,
                  collection_name: str = "sandbox_documents", 
                  persist_directory: str = "chromadb"):
         """
@@ -31,6 +43,77 @@ class VectorStoreManager:
         self.collection = None
         self._initialize_store()
     
+    #
+    @classmethod
+    def getVectorStore(cls, type: str = "chromadb") -> VectorStore :
+        
+        #
+        embeddings = HuggingFaceEmbeddings(
+            model_name= "sentence-transformers/all-mpnet-base-v2",
+            model_kwargs= {"device": "cpu"},
+            encode_kwargs= {"normalize_embeddings": False}
+        )
+
+        match type:
+            case 'chromadb':
+                
+                # chroma run --path vectorstore/chroma
+                folder = Path(f"{os.getenv("WORK_DIR")}/storage/chromadb")
+                if not os.path.exists(folder):
+                    os.makedirs(f"{os.getenv("WORK_DIR")}/storage/chromadb",exist_ok=True)
+                #           
+                client = chromadb.PersistentClient(path=f"{os.getenv("WORK_DIR")}/storage/chromadb")
+                
+                #
+                vectorstore = Chroma(
+                    client=client,
+                    persist_directory=f"{os.getenv("WORK_DIR")}/storage/chromadb",
+                    collection_name = "sandbox_documents",
+                    embedding_function=embeddings
+                )
+
+            case 'faissdb':
+                #
+                document=Document(
+                    page_content="this is the main text content I am using to create RAG",
+                        metadata={
+                            "source":"plain_text",
+                            "pages":1,
+                            "author":"Brijesh Dhaker",
+                            "date_created":"2025-01-01"
+                        }
+                )
+                index = faiss.IndexFlatL2(len(embeddings.embed_documents([document.page_content])))
+                folder = Path(f"{os.getenv("WORK_DIR")}/storage/faissdb")
+                # Check if it exists AND is a directory
+                if folder.is_dir() and os.path.exists(folder):
+                    vectorstore = FAISS.load_local(
+                        index_name="faiss_index",
+                        folder_path=str(folder),
+                        embeddings=embeddings, 
+                        allow_dangerous_deserialization=True
+                    )
+                else :
+                    #from langchain.storage import LocalFileStore
+                    vectorstore = FAISS.from_documents([document], embeddings)
+                    # vectorstore = FAISS(
+                    #     index=index,
+                    #     docstore= InMemoryDocstore(),
+                    #     embedding_function=embeddings,
+                    #     index_to_docstore_id={}
+                    # )
+                    vectorstore.save_local(
+                        folder_path=str(folder), 
+                        index_name="faiss_index"
+                    )
+            case _:
+                pass
+        #
+
+        return vectorstore;
+        
+    
+
     #
     def _initialize_store(self):
         """Initialize ChromaDB client and collection"""
