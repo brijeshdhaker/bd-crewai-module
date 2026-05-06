@@ -3,6 +3,7 @@ from crewai.project import CrewBase, agent, crew, task
 from crewai.agents.agent_builder.base_agent import BaseAgent
 from crewai_tools import PDFSearchTool
 from typing import List
+from com.example.ai.tools.PDFSearchTool import pdf_search_tool
 
 @CrewBase
 class ToolRagCrew:
@@ -16,10 +17,8 @@ class ToolRagCrew:
 
     def getPDFRagTool(self):
         if self.pdf_tool is None:
-            self.pdf_tool = PDFSearchTool(
-                pdf=self.pdf_path,
-                #chunker=dict(chunk_size=2000,chunk_overlap=50)
-            )
+            pdf_search_tool.add(pdf=self.pdf_path)
+            self.pdf_tool = pdf_search_tool
         return self.pdf_tool
 
     @agent
