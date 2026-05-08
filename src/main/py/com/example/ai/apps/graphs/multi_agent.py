@@ -8,7 +8,7 @@ from langgraph.graph import MessagesState, StateGraph, START, END
 from langgraph.types import Command
 from langgraph.graph.message import add_messages
 import os, json, uuid, mysql.connector
-from langchain.tools import Tool
+#from langchain.tools import Tool
 from langchain.chat_models import init_chat_model
 from langchain_core.messages import AIMessage, HumanMessage, BaseMessage
 from langchain_classic.chains import RetrievalQA

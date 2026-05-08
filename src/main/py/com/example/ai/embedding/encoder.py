@@ -1,5 +1,5 @@
 from sentence_transformers import SentenceTransformer
-from pdf_search_crew.loader.pdf_loader import extract_text_from_pdf
+from com.example.ai.loader.pdf_loader import extract_text_from_pdf
 
 # Load the pre-trained sentence transformer model
 model = SentenceTransformer('sentence-transformers/all-MiniLM-L6-v2')

@@ -233,7 +233,7 @@ if __name__ == "__main__":
    
     #load_manager = LoadManager("docs")
 
-    dir_douments = LoadManager.from_directory("docs", inclusions=['txt','json'])
+    dir_douments = LoadManager.from_directory("documents", inclusions=['txt','json'])
     print(f"[*INFO] Total loaded documents: {len(dir_douments)}")
 
     #json_douments = LoadManager.from_json(['docs/json/articals.json'])
