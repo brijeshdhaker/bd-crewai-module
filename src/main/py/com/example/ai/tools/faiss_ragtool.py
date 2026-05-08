@@ -2,7 +2,7 @@ from crewai.tools import BaseTool
 from typing import Type
 from pydantic import BaseModel, Field,PrivateAttr
 from com.example.ai.vectors.VectorStoreManager import VectorStoreManager
-
+from langchain_core.vectorstores import VectorStore
 #
 class DocumentQueryInput(BaseModel):
     query: str
@@ -15,13 +15,14 @@ class FAISSRagTool(BaseTool):
     name: str = "FAISS Rag Tool"
     description: str = "retrieves informations using FAISS"
     args_schema: Type[BaseModel] = DocumentQueryInput
+    #vectorstore: VectorStore
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
-        self.vectorstore = VectorStoreManager.getVectorStore(type="faissdb")
-
+    
     def _run(self, query: str):
-        documents = self.vectorstore.similarity_search(query)
+        vectorstore = VectorStoreManager.getVectorStore(type="faissdb")
+        documents = vectorstore.similarity_search(query)
         texts = [d.page_content for d in documents if d.page_content]
         return "\n\n".join(texts)
 

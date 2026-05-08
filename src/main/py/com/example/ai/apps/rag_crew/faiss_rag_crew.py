@@ -17,14 +17,14 @@ class FAISSRagCrew:
 
     def __init__(self,pdf_path):
         self.pdf_path=pdf_path
-        self.vector_store= None
+        self.vectorstore= None
         self.search_tool=FAISSRagTool()
 
-    def prepare_rag(self,pdf_text):
+    def prepare_rag(self):
         loader = PDFPlumberLoader(file_path=self.pdf_path)
         documents = loader.load()
-        vstore_manager = VectorStoreManager() 
-        vstore_manager.add_documents(documents)   
+        self.vectorstore = VectorStoreManager(store_type='faissdb')
+        self.vectorstore.add_documents(documents)   
 
     @agent
     def pdf_researcher(self) -> Agent:
@@ -56,7 +56,7 @@ class FAISSRagCrew:
 
     @crew
     def crew(self) -> Crew:
-
+        self.prepare_rag()
         return Crew(
             agents=self.agents,
             tasks=self.tasks,

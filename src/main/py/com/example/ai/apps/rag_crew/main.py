@@ -31,7 +31,7 @@ def runToolRagCrew(topic='All recipes with rice', pdf_path='knowledge/pdfs/Easy_
         raise Exception(f"An error occurred while running the crew: {e}")
 
 
-def runPDFKnowledgeCrew(topic='All recipes with rice',pdf_path='pdfs/Easy_recipes.pdf'):
+def runPDFKnowledgeCrew(topic='All recipes with rice',pdf_path='knowledge/pdfs/Easy_recipes.pdf'):
     """
     Run the crew.
     """
@@ -49,14 +49,14 @@ def runPDFKnowledgeCrew(topic='All recipes with rice',pdf_path='pdfs/Easy_recipe
     except Exception as e:
         raise Exception(f"An error occurred while running the crew: {e}")
 
-def runFAISSRagCrew(topic='All recipes with rice',pdf_path='knowledge/pdfs/Easy_recipes.pdf'):
+def runFAISSRagCrew(topic='All recipes with rice', pdf_path='knowledge/pdfs/Easy_recipes.pdf'):
     run_dt = getRunDates()
     inputs = {
         "topic": topic,
         "run_date": run_dt[0],
         "run_id": run_dt[1]
     }
-    output=FAISSRagCrew(pdf_path).crew().kickoff(inputs=inputs)
+    output=FAISSRagCrew(pdf_path=pdf_path).crew().kickoff(inputs=inputs)
     print(output.token_usage)
 
 
@@ -64,8 +64,8 @@ def runFAISSRagCrew(topic='All recipes with rice',pdf_path='knowledge/pdfs/Easy_
 if __name__ == "__main__":
     load_dotenv()
     #runFAISSRagCrew(topic='Recipes where rice is the main ingredient')
-    #runFAISSRagCrew()
+    runFAISSRagCrew()
     #runToolRagCrew(topic='Recipes where rice is the main ingredient')
     #runToolRagCrew()
     #runPDFKnowledgeCrew(topic='Recipes where rice is the main ingredient')
-    runPDFKnowledgeCrew()
+    #runPDFKnowledgeCrew()

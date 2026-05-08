@@ -117,7 +117,7 @@ class VectorStoreManager:
         
     
     #        
-    def add_documents(self, documents: List[Any]):
+    def add_documents(self, documents: list[Document]):
         #
         splitter = RecursiveCharacterTextSplitter(
             chunk_size=1000, 
@@ -125,7 +125,7 @@ class VectorStoreManager:
             length_function=len,
             separators=["\n\n", "\n", " ", ""]
         )
-        chunks = splitter.split_documents(douments)
+        chunks = splitter.split_documents(documents=documents)
         #
         self.vectorstore.add_documents(documents=chunks)
         self.__save()
