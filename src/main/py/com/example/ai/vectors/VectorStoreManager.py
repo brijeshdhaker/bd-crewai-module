@@ -14,7 +14,7 @@ from sklearn.metrics.pairwise import cosine_similarity
 from com.example.ai.loader.LoadManager import LoadManager
 from com.example.ai.embedding.EmbeddingManager import EmbeddingManager
 from langchain_text_splitters import RecursiveCharacterTextSplitter
-from langchain_core.vectorstores import VectorStore
+from langchain_core.vectorstores import VectorStore, VectorStoreRetriever
 from langchain_huggingface import HuggingFaceEmbeddings
 import faiss
 from langchain_community.docstore.in_memory import InMemoryDocstore
@@ -34,98 +34,83 @@ class VectorStoreManager:
         ## Create a simple txt file
         self.store_type = store_type
         self.collectionOrIndexName = collectionOrIndexName
-
+        
+        # chroma run --path vectorstore/chroma
+        self.folder = Path(f"{os.getenv("WORK_DIR")}/storage/{store_type}")
+        if not os.path.exists(self.folder):
+            os.makedirs(self.folder,exist_ok=True)
+        
+        #
+        self.splitter = RecursiveCharacterTextSplitter(
+            chunk_size=1000, 
+            chunk_overlap=200,
+            length_function=len,
+            separators=["\n\n", "\n", " ", ""]
+        )
+        
+        #
         self.embeddings = HuggingFaceEmbeddings(
             model_name= "sentence-transformers/all-mpnet-base-v2",
             model_kwargs= {"device": "cpu"},
             encode_kwargs= {"normalize_embeddings": False}
         )
-        self.vectorstore = VectorStoreManager.getVectorStore(
-            type=store_type, 
-            collectionOrIndexName=collectionOrIndexName, 
-            embeddings=self.embeddings
-        )
-        
-    
-    #
-    @classmethod
-    def getVectorStore(cls, type: str = "chromadb", **kwargs) -> VectorStore :
         
         #
-        embeddings = HuggingFaceEmbeddings(
-            model_name= "sentence-transformers/all-mpnet-base-v2",
-            model_kwargs= {"device": "cpu"},
-            encode_kwargs= {"normalize_embeddings": False}
-        )
-
-        match type:
+        self._init_vectorstore()
+    
+    
+    #    
+    def _init_vectorstore(self) :
+        #
+        match self.store_type:
             case 'chromadb':
-                
-                # chroma run --path vectorstore/chroma
-                folder = Path(f"{os.getenv("WORK_DIR")}/storage/chromadb")
-                if not os.path.exists(folder):
-                    os.makedirs(f"{os.getenv("WORK_DIR")}/storage/chromadb",exist_ok=True)
                 #           
-                client = chromadb.PersistentClient(path=f"{os.getenv("WORK_DIR")}/storage/chromadb")
-                
+                client = chromadb.PersistentClient(path=str(self.folder))
                 #
-                vectorstore = Chroma(
+                self.vectorstore = Chroma(
                     client=client,
-                    persist_directory=f"{os.getenv("WORK_DIR")}/storage/chromadb",
-                    collection_name = "sandbox_documents",
-                    embedding_function=embeddings
+                    persist_directory=str(self.folder),
+                    collection_name = self.collectionOrIndexName,
+                    embedding_function=self.embeddings
                 )
 
             case 'faissdb':
                 #
                 document=Document(
                     page_content="this is the main text content I am using to create RAG",
-                        metadata={
-                            "source":"plain_text",
-                            "pages":1,
-                            "author":"Brijesh Dhaker",
-                            "date_created":"2025-01-01"
-                        }
+                    metadata={"source":"plain_text", "pages":1, "author":"Brijesh Dhaker", "date_created":"2025-01-01"}
                 )
-                index = faiss.IndexFlatL2(len(embeddings.embed_documents([document.page_content])))
-                folder = Path(f"{os.getenv("WORK_DIR")}/storage/faissdb")
                 # Check if it exists AND is a directory
-                if folder.is_dir() and os.path.exists(folder):
-                    vectorstore = FAISS.load_local(
-                        index_name="faiss_index",
-                        folder_path=str(folder),
-                        embeddings=embeddings, 
-                        allow_dangerous_deserialization=True
+                if os.path.exists(self.folder.joinpath(f"{self.collectionOrIndexName}.faiss")):
+                    self.vectorstore = FAISS.load_local(
+                        index_name = self.collectionOrIndexName,
+                        folder_path = str(self.folder),
+                        embeddings = self.embeddings, 
+                        allow_dangerous_deserialization = True
                     )
                 else :
                     #from langchain.storage import LocalFileStore
-                    vectorstore = FAISS.from_documents([document], embeddings)
-                    # vectorstore = FAISS(
-                    #     index=index,
-                    #     docstore= InMemoryDocstore(),
-                    #     embedding_function=embeddings,
-                    #     index_to_docstore_id={}
-                    # )
-                    vectorstore.save_local(
-                        folder_path=str(folder), 
-                        index_name="faiss_index"
+                    #vectorstore = FAISS.from_documents([document], self.embeddings)
+                    index = faiss.IndexFlatL2(len(self.embeddings.embed_query(text="this is the main text content I am using to create RAG")))
+                    self.vectorstore = FAISS(
+                        index=index,
+                        docstore= InMemoryDocstore(),
+                        embedding_function=self.embeddings,
+                        index_to_docstore_id={}
+                    )
+                    self.vectorstore.save_local(
+                        folder_path=str(self.folder), 
+                        index_name=self.collectionOrIndexName
                     )
             case _:
                 pass
-        #
-        return vectorstore
-        
     
     #        
     def add_documents(self, documents: list[Document]):
-        #
-        splitter = RecursiveCharacterTextSplitter(
-            chunk_size=1000, 
-            chunk_overlap=200,
-            length_function=len,
-            separators=["\n\n", "\n", " ", ""]
-        )
-        chunks = splitter.split_documents(documents=documents)
+        
+        chunks = self.splitter.split_documents(documents=documents)
+        print(f"[*INFO] Total {len(documents)} documents splitted into {len(chunks)} chunks.")
+
         #
         self.vectorstore.add_documents(documents=chunks)
         self.__save()
@@ -133,10 +118,13 @@ class VectorStoreManager:
     #
     def __save(self):
         if isinstance(self.vectorstore, FAISS):
-            folder = Path(f"{os.getenv("WORK_DIR")}/storage/faissdb")
-            self.vectorstore.save_local(folder_path=str(folder), index_name=self.collectionOrIndexName)
+            #
+            self.vectorstore.save_local(folder_path=str(self.folder), index_name=self.collectionOrIndexName)
         
-        
+    #
+    def retriever(self, **kwargs) -> VectorStoreRetriever :
+        return self.vectorstore.as_retriever(**kwargs)
+    
 
 # Example usage
 if __name__ == "__main__":
@@ -147,7 +135,9 @@ if __name__ == "__main__":
     print(f"[*INFO] Total loaded documents: {len(douments)}")
     
     #Convert the text to embeddings
-    vectorstore = VectorStoreManager()
-    vectorstore.add_documents(douments)
+    store_mgr = VectorStoreManager(store_type="faissdb", collectionOrIndexName="faiss_index")
+    store_mgr.add_documents(douments)
+
+    
         
     

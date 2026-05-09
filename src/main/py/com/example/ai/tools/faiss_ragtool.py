@@ -21,8 +21,18 @@ class FAISSRagTool(BaseTool):
         super().__init__(**kwargs)
     
     def _run(self, query: str):
-        vectorstore = VectorStoreManager.getVectorStore(type="faissdb")
-        documents = vectorstore.similarity_search(query)
+        #
+        store_mgr = VectorStoreManager(store_type="faissdb", collectionOrIndexName="faiss_index")
+        retriever = store_mgr.retriever(
+            search_type="similarity",
+            search_kwargs={
+                "filter": {"source": "knowledge/pdfs/Easy_recipes.pdf"}, 
+                "score_threshold": 0.8,
+                "k": 5, 
+                "fetch_k": 50
+            }
+        )
+        documents = retriever.invoke(query)
         texts = [d.page_content for d in documents if d.page_content]
         return "\n\n".join(texts)
 

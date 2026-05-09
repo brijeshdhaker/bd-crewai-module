@@ -49,7 +49,7 @@ def runPDFKnowledgeCrew(topic='All recipes with rice',pdf_path='knowledge/pdfs/E
     except Exception as e:
         raise Exception(f"An error occurred while running the crew: {e}")
 
-def runFAISSRagCrew(topic='All recipes with rice', pdf_path='knowledge/pdfs/Easy_recipes.pdf'):
+def runFAISSRagCrew(topic='All recipes with rice ?', pdf_path='knowledge/pdfs/Easy_recipes.pdf'):
     run_dt = getRunDates()
     inputs = {
         "topic": topic,

@@ -23,8 +23,8 @@ class FAISSRagCrew:
     def prepare_rag(self):
         loader = PDFPlumberLoader(file_path=self.pdf_path)
         documents = loader.load()
-        self.vectorstore = VectorStoreManager(store_type='faissdb')
-        self.vectorstore.add_documents(documents)   
+        #self.vectorstore = VectorStoreManager(store_type="faissdb", collectionOrIndexName="faiss_index")
+        #self.vectorstore.add_documents(documents)   
 
     @agent
     def pdf_researcher(self) -> Agent:
