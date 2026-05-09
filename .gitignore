@@ -2,8 +2,8 @@
 __pycache__/
 .DS_Store
 storage
-outputs
-logs/*.*
+outputs/*
+logs/*
 .venv
 credentials.json
 token.json
