@@ -110,10 +110,11 @@ class VectorStoreManager:
         
         chunks = self.splitter.split_documents(documents=documents)
         print(f"[*INFO] Total {len(documents)} documents splitted into {len(chunks)} chunks.")
-
         #
         self.vectorstore.add_documents(documents=chunks)
+        print(f"[*INFO] documents successfullu added to vectore store.")
         self.__save()
+        print(f"[*INFO] documents successfullu persisted into local disk of vectorestore.")
 
     #
     def __save(self):

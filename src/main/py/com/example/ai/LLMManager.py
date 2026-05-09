@@ -24,8 +24,8 @@ class LLMManager:
     def get_model(cls, provider: str = 'openai', **kwargs):
         # Initialize models
         return init_chat_model(
-            model_provider=provider, 
-            model=os.environ["OPENAI_MODEL_NAME"], 
+            #model_provider=provider, 
+            model=f"{provider}:{os.environ["OPENAI_MODEL_NAME"]}", 
             **kwargs
         )
     
