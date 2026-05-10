@@ -60,6 +60,9 @@ rag_search_faiss_crew = "com.example.ai.apps.rag_crew.main:runFAISSRagCrew"
 rag_search_tool_crew = "com.example.ai.apps.rag_crew.main:runToolRagCrew"
 rag_search_knowledge_crew = "com.example.ai.apps.rag_crew.main:runPDFKnowledgeCrew"
 rag_search_app = "com.example.ai.apps.rag_crew.RAGSearch:main"
+#
+run_design_crew = "com.example.ai.apps.design_crew.main:trigger"
+
 
 
 [build-system]

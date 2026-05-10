@@ -1,0 +1,37 @@
+<component name="InspectionProjectProfileManager">
+  <profile version="1.0">
+    <option name="myName" value="Project Default" />
+    <inspection_tool class="PyPackageRequirementsInspection" enabled="true" level="WARNING" enabled_by_default="true">
+      <option name="ignoredPackages">
+        <list>
+          <option value="Flask" />
+          <option value="pyspark" />
+          <option value="delta-spark" />
+          <option value="confluent-kafka" />
+          <option value="ipykernel" />
+          <option value="ipywidgets" />
+          <option value="ipython-sql" />
+          <option value="pymysql" />
+          <option value="jupysql" />
+          <option value="duckdb-engine" />
+          <option value="grpcio" />
+          <option value="google-search-results" />
+          <option value="numexpr" />
+          <option value="text-generation" />
+          <option value="sentence-transformers" />
+          <option value="sentencepiece" />
+          <option value="jinja2" />
+          <option value="bitsandbytes" />
+          <option value="accelerate" />
+          <option value="typesense" />
+          <option value="duckduckgo-search" />
+          <option value="unstructured" />
+          <option value="ddgs" />
+          <option value="embedchain" />
+          <option value="openai-agents" />
+          <option value="docx2txt" />
+        </list>
+      </option>
+    </inspection_tool>
+  </profile>
+</component>
