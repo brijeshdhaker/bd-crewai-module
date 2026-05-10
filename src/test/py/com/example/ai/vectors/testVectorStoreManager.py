@@ -8,14 +8,15 @@ from langchain_community.document_loaders import PDFPlumberLoader
 
 #
 store_mgr = VectorStoreManager(store_type="faissdb", collectionOrIndexName="faiss_index")
+# store_mgr = VectorStoreManager(store_type="chromadb", collectionOrIndexName="sandbox-documents")
 
-# #
+#
 # loader = PDFPlumberLoader(file_path="knowledge/pdfs/Easy_recipes.pdf")
 # documents = loader.load()
 
 # # documents = LoadManager.from_directory("knowledge/pdfs", inclusions=['pdf'])
 
-# #
+#
 # store_mgr.add_documents(documents=documents)
 
 # #
@@ -48,9 +49,9 @@ retriever = store_mgr.retriever(
     search_type="similarity", 
     search_kwargs={
         "filter": {"source": "knowledge/pdfs/Easy_recipes.pdf"}, 
-        "score_threshold": 0.8,
-        "k": 5, 
-        "fetch_k": 50
+        "k": 5,
+        # "score_threshold": 0.8,
+        # "fetch_k": 50
     }
 )
 

@@ -2,9 +2,11 @@ import os
 from crewai import Crew, Agent, Task, Process, LLM
 from langchain_ollama import ChatOllama
 from com.example.ai.LLMManager import LLMManager
+from com.example.ai.vectors.VectorStoreManager import VectorStoreManager
 
-def retrieval_action(question, vectorstore):
-    results = vectorstore.similarity_search(question, k=5)
+def retrieval_action(question, store_mgr: VectorStoreManager):
+    retriever = store_mgr.retriever(search_type="similarity", search_kwargs={"k": 5})
+    results = retriever.invoke(input=question)
     return "\n\n".join([f"Passage {i+1}: {doc.page_content}" for i, doc in enumerate(results)])
 
 def generation_action(inputs):
@@ -33,13 +35,13 @@ def generation_action(inputs):
     llm = LLMManager.get_model()
     return llm.invoke(prompt)
 
-def create_crew(vectorstore, status_callback=None):
+def create_crew(store_mgr: VectorStoreManager, status_callback=None):
 
     def retrieval_wrapper(question):
         if status_callback:
             status_callback("Searching for relevant passages in the research paper...")
 
-        result = retrieval_action(question, vectorstore)
+        result = retrieval_action(question, store_mgr)
         if status_callback:
             status_callback("Found relevant passages for analysis")
 

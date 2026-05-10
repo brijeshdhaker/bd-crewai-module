@@ -1,4 +1,7 @@
 #
+import os
+import pypdf
+import uuid
 from pathlib import Path
 from typing import List, Any
 from langchain_community.document_loaders import PyPDFLoader, TextLoader, CSVLoader
@@ -7,6 +10,7 @@ from langchain_community.document_loaders.excel import UnstructuredExcelLoader
 from langchain_community.document_loaders import JSONLoader
 from langchain_community.document_loaders import WebBaseLoader
 from langchain_community.document_loaders import UnstructuredURLLoader
+from langchain_core.documents import Document
 
 #
 class LoadManager:
@@ -221,6 +225,46 @@ class LoadManager:
                 print(f"[ERROR] Failed to load Web document from {web_path}: {e}")
 
         return _documents
+    
+    #
+    @classmethod
+    def from_upload(cls, uploaded_file):
+        _documents = []
+        temp_path = f"temp_upload_{uuid.uuid4().hex[:8]}.pdf"
+        try:
+            with open(temp_path, "wb") as f:
+                # Use .read() for standard file-likes
+                f.write(uploaded_file.getbuffer()) 
+            
+            # 2. Use PyPDFLoader to create LangChain Documents
+            loader = PyPDFLoader(temp_path)
+            
+            # Returns a list of Document objects
+            loaded = loader.load() 
+            _documents.extend(loaded)
+
+            # 3. Clean up the temporary file
+            os.remove(temp_path)
+
+            # pdf_reader = pypdf.PdfReader(uploaded_file)
+            # text = "\n"
+            # for page in pdf_reader.pages:
+            #     text += page.extract_text() + "\n"
+        except Exception as e:
+            print(f"[ERROR] Failed to load Uploaded document from {temp_path}: {e}")    
+        
+        return _documents
+    
+    #
+    @classmethod
+    def text_from_documents(cls, documents: list[Document]):
+        try:
+            text = "\n"
+            for document in documents:
+                text += document.page_content + "\n"
+            return text
+        except Exception as e:
+            return None
     
     # "Private" with Name Mangling (__name)
     def __setupLoader(self):

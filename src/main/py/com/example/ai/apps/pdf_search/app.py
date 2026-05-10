@@ -1,10 +1,12 @@
 #
-# streamlit run src/pdf_search_crew/app.py
+# streamlit run src/main/py/com/example/ai/apps/pdf_search/app.py
 #
 import streamlit as st
-from com.example.ai.loader.pdf_loader import extract_text_from_pdf, generate_paper_summary
-from com.example.ai.vectors.vector_store import process_document
 from com.example.ai.apps.pdf_search.basic_crew import create_crew,retrieval_action, generation_action
+from com.example.ai.loader.LoadManager import LoadManager
+from com.example.ai.vectors.VectorStoreManager import VectorStoreManager
+from com.example.ai.LLMManager import LLMManager
+
 
 st.set_page_config(
     page_title="Research Paper Analyst",
@@ -12,8 +14,8 @@ st.set_page_config(
     initial_sidebar_state="expanded"
 )
 
-if 'vectorstore' not in st.session_state:
-    st.session_state.vectorstore = None
+if 'vstore_mgr' not in st.session_state:
+    st.session_state.vstore_mgr = None
 
 if 'document_processed' not in st.session_state:
     st.session_state.document_processed = False
@@ -24,6 +26,30 @@ if 'chat_history' not in st.session_state:
 if 'paper_summary' not in st.session_state:
     st.session_state.paper_summary = None
 
+def generate_paper_summary(text):
+    try:
+
+        llm = LLMManager.get_model(temperature=0.3, max_tokens=4096) #OpenAI(temperature=0.3, max_tokens=1000)  
+        summary_prompt = (
+            "You are an expert research analyst. Please provide a comprehensive summary of this research paper. "
+            "Include the following sections:\n\n"
+            "1. **Title and Authors** (if available)\n"
+            "2. **Abstract/Summary** - Main research question and objectives\n"
+            "3. **Methodology** - How the research was conducted\n"
+            "4. **Key Findings** - Main results and discoveries\n"
+            "5. **Contributions** - What new knowledge or insights this paper provides\n"
+            "6. **Limitations** - Any limitations mentioned by the authors\n"
+            "7. **Future Work** - Suggested future research directions\n\n"
+            "Please be thorough but concise. Use clear headings and bullet points where appropriate.\n\n"
+            f"Research Paper Text:\n{text[:8000]}\n\n"  # Limit text to avoid token limits
+            "Summary:"
+        )
+        summary = llm.invoke(summary_prompt)
+        return summary
+    except Exception as e:
+        st.error(f"Error generating summary: {str(e)}")
+        return None
+    
 def main():
 
     st.title("Research Paper Analyst")
@@ -40,14 +66,19 @@ def main():
             st.info(f"File uploaded: {uploaded_file.name}")        
             if st.button("Process Document", type="primary"):
                 with st.spinner("Processing document and generating summary..."):
-                    text = extract_text_from_pdf(uploaded_file)    
+                    _documents = LoadManager.from_upload(uploaded_file)    
+                    text = LoadManager.text_from_documents(_documents)
                     if text:
                         summary = generate_paper_summary(text)        
                         if summary:
                             st.session_state.paper_summary = summary
-                            vectorstore = process_document(text)        
-                        if vectorstore:
-                            st.session_state.vectorstore = vectorstore
+                            vstore_mgr = VectorStoreManager(
+                                store_type="faissdb", 
+                                collectionOrIndexName="faiss_index"
+                            )
+                            vstore_mgr.add_documents(_documents)
+                        if vstore_mgr:
+                            st.session_state.vstore_mgr = vstore_mgr
                             st.session_state.document_processed = True
                             st.info("Document processed successfully! Summary generated and ready for questions.")
                         else:
@@ -101,11 +132,11 @@ def main():
 
                     status_placeholder.info("Initializing AI agents...")
                     log_step("CrewAI agents initialized")
-                    crew = create_crew(st.session_state.vectorstore, status_callback)
+                    crew = create_crew(st.session_state.vstore_mgr, status_callback)
                     status_placeholder.info("Starting AI analysis...")
                     log_step("CrewAI execution started")
                     status_placeholder.info("Retrieving relevant passages...")
-                    retrieved_passages = retrieval_action(prompt, st.session_state.vectorstore)
+                    retrieved_passages = retrieval_action(prompt, st.session_state.vstore_mgr)
                     log_step("Retrieved relevant passages from the research paper")
                     status_placeholder.info("Generating comprehensive answer...")
 

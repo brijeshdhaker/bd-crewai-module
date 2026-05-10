@@ -36,6 +36,7 @@ dependencies = [
     "sentence-transformers>=5.4.1",
     "streamlit>=1.57.0",
     "tavily-python>=0.7.24",
+    "torchvision>=0.26.0",
 ]
 
 [project.optional-dependencies]
