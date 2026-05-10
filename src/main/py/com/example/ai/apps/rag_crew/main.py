@@ -61,7 +61,7 @@ def runFAISSRagCrew(topic='All recipes with rice ?', pdf_path='knowledge/pdfs/Ea
 
 
 
-if __name__ == "__main__":
+def main():
     load_dotenv()
     #runFAISSRagCrew(topic='Recipes where rice is the main ingredient')
     runFAISSRagCrew()
@@ -69,3 +69,6 @@ if __name__ == "__main__":
     #runToolRagCrew()
     #runPDFKnowledgeCrew(topic='Recipes where rice is the main ingredient')
     #runPDFKnowledgeCrew()
+
+if __name__ == "__main__":
+    main()

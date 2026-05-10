@@ -1,10 +1,11 @@
+import os
+from dotenv import load_dotenv
 from com.example.ai.loader.LoadManager import LoadManager
 from com.example.ai.vectors.VectorStoreManager import VectorStoreManager
-from langchain_text_splitters import RecursiveCharacterTextSplitter
 from com.example.ai.LLMManager import LLMManager
-import os
 from langchain_community.document_loaders import PDFPlumberLoader
-from langchain.chat_models import init_chat_model
+
+#
 class RAGSearch:
     
     #
@@ -40,14 +41,18 @@ class RAGSearch:
         context = "\n\n".join(texts)
         if not context:
             return "No relevant documents found."
-        prompt = f"""Summarize the following context for the query: '{query}'\n\nContext:\n{context}\n\nSummary:"""
+        prompt = f"""Summarize the following context for the query: '{topic}'\n\nContext:\n{context}\n\nSummary:"""
         response = self.llm.invoke([prompt])
         return response.content
 
 
-# Example usage
-if __name__ == "__main__":
+def main():
+    load_dotenv()
     rag_search = RAGSearch()
     query = "How does exercise price determine for ESOP ?"
     summary = rag_search.search_and_summarize(query, top_k=5)
     print("Summary:", summary)
+
+# Example usage
+if __name__ == "__main__":
+    main()

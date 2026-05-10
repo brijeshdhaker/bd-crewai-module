@@ -55,6 +55,11 @@ bd_crewai_run_with_trigger = "com.example.ai.apps.crewai.main:run_with_trigger"
 #
 mysql_chat_start_app = "com.example.ai.apps.mysql_chat.app_runner:start_app"
 mysql_chat_start_services = "com.example.ai.apps.mysql_chat.app_runner:start_services"
+#
+rag_search_faiss_crew = "com.example.ai.apps.rag_crew.main:runFAISSRagCrew"
+rag_search_tool_crew = "com.example.ai.apps.rag_crew.main:runToolRagCrew"
+rag_search_knowledge_crew = "com.example.ai.apps.rag_crew.main:runPDFKnowledgeCrew"
+rag_search_app = "com.example.ai.apps.rag_crew.RAGSearch:main"
 
 
 [build-system]
