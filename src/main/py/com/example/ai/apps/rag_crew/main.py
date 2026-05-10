@@ -31,7 +31,7 @@ def runToolRagCrew(topic='All recipes with rice', pdf_path='knowledge/pdfs/Easy_
         raise Exception(f"An error occurred while running the crew: {e}")
 
 
-def runPDFKnowledgeCrew(topic='All recipes with rice',pdf_path='knowledge/pdfs/Easy_recipes.pdf'):
+def runPDFKnowledgeCrew(topic='All recipes with rice',pdf_path='pdfs/Easy_recipes.pdf'):
     """
     Run the crew.
     """
