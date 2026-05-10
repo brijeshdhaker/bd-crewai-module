@@ -3,7 +3,7 @@ import requests
 import json
 
 #
-# streamlit run src/main/py/com/example/ai/apps/mysql_chat/app.py --server.port 8000
+# streamlit run src/main/py/com/example/ai/apps/mysql_chat/app.py --server.port 8500
 #
 
 # Set page config

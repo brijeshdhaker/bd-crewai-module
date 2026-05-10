@@ -16,6 +16,17 @@
       "justMyCode": false
     },
     {
+      "name": "Python Debugger: FastAPI",
+      "type": "debugpy",
+      "request": "launch",
+      "module": "uvicorn",
+      "console": "integratedTerminal",
+      "args": ["com.example.ai.apps.mysql_chat.main:app", "--reload"],
+      "jinja": true,
+      "envFile": "${workspaceFolder}/.env",
+      "justMyCode": false
+    },
+    {
       "name": "Python Debugger: Flask",
       "type": "debugpy",
       "request": "launch",
