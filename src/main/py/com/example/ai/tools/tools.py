@@ -26,7 +26,7 @@ def pdf_search_tool(query : str):
         """
         _tool_config = create_rag_config()
         pdf_tool = PDFSearchTool(
-            pdf='/home/brijeshdhaker/IdeaProjects/bd-notebooks-module/docs/pdf/2026-04-01_BRIJESHD_PROFILE_MP.pdf',
+            pdf='/home/brijeshdhaker/IdeaProjects/bd-notebooks-module/knowledge/pdf/2026-04-01_BRIJESHD_PROFILE_MP.pdf',
             config=_tool_config
         )
 
@@ -88,7 +88,7 @@ def docx_search_tool(_query: str):
     """
     _tool_config = create_rag_config()
 	# Initialize the tool for semantic searches within a specific GitHub repository
-    _doc_path = '/home/brijeshdhaker/IdeaProjects/bd-notebooks-module/docs/docx/Brijesh_Dhaker_ATS_Resume.docx'
+    _doc_path = '/home/brijeshdhaker/IdeaProjects/bd-notebooks-module/knowledge/docx/Brijesh_Dhaker_ATS_Resume.docx'
     
     # Initialize the tool to search within any DOCX file's content
     docx_tool = DOCXSearchTool(config=_tool_config)
@@ -135,7 +135,7 @@ def codedoc_search_tool(_query: str):
     _tool_config = create_rag_config()
     # by providing its URL:
     _search_tool = CodeDocsSearchTool(
-        docs_url='https://docs.oracle.com/javase/8/docs/api/java/net/URL.html',
+        docs_url='https://knowledge.oracle.com/javase/8/knowledge/api/java/net/URL.html',
         config=_tool_config
     )
     #

@@ -1,0 +1,151 @@
+# Brijesh K. Dhaker
+
+**Email:** brijeshdhaker@gmail.com  
+**Phone:** (+91)98209-37445  
+**LinkedIn:** [linkedin.com/in/brijesh-k-dhaker](https://www.linkedin.com/in/brijesh-k-dhaker-08458872)  
+**GitHub:** [github.com/brijeshdhaker](https://github.com/brijeshdhaker)  
+
+---
+
+## Professional Summary
+
+Senior technology executive with `21+ years` of leadership across `Investment Banking and Assets & Wealth
+Management` at Tier-1 global banks `(UBS, JPMorgan, Goldman Sachs)`. Proven track record of building and
+scaling Agentic AI, GenAI, and RAG-based data platforms — currently leading UBS's `Client Risk Rating`
+modernization using LangChain, LangGraph, MCP, and A2A to deliver a high-volume, low-latency compliance
+intelligence platform. Deep expertise in Data Engineering, Cloud Migration (Azure Databricks, AWS), and IB
+Regulatory Reporting `(MIFID-II, SFTR, EUBR/UKBR)`, with a strong record of delivering zero-breach regulatory
+programs and Financial Crime Prevention platforms at enterprise scale. Experienced in managing cross-functional
+teams of 10–12 engineers, driving `AI strategy, data governance, and digital transformation` from architecture
+through production.
+
+---
+
+## Core Competencies
+AI/ML Strategy & Roadmap • Agentic AI Platform Engineering • Data Architecture & Governance • Financial Crime
+Compliance • IB Regulatory Reporting • Cloud Migration & Modernization • Team Building & Leadership •
+Stakeholder Management • Digital Transformation
+
+## Experience
+
+### DIRECTOR  
+**AI & DATA ENGINEERING | UBS BUSINESS SOLUTIONS | PUNE**  
+*Apr 2025 – Present*  
+- `AI & Innovation Lead, Financial Crime Prevention Compliance Reporting`: Architected and leading UBS's
+first Agentic AI & RAG-based modernization of the Client Risk Rating (CRR) platform — transforming a legacy
+brown-field processing stack into a high-volume, low-latency, green-field platform using LangChain,
+LangGraphs, and LLM-powered agents integrated via A2A and MCP protocols, targeting a 60%+ reduction in
+manual compliance review time across Financial Crime Prevention workflows.
+- Leading end-to-end `Solution Architecture for Client Risk Rating (CRR) and SVC applications`
+across microservices, distributed systems, and agentic AI orchestration layers — defining technical design
+standards, enforcing code quality processes, and integrating Vector DB and Embeddings to enable semantic
+search and context-aware risk scoring at enterprise scale.
+- Optimized application performance, resulting in a 20% increase in speed.
+- Mentored junior developers and conducted code reviews to ensure best practices.
+- Utilized Agile methodologies to manage project timelines and deliverables. 
+
+**DATA STRATEGY & MODERNIZATION | UBS BUSINESS SOLUTIONS | PUNE**  
+*Apr 2022 – Mar 2025*
+ - Directed end-to-end delivery of complex IB Market Regulatory Reporting group across a 10–12-member
+engineering team, implementing CI/CD automation pipelines that reduced deployment cycle time by ~40% and
+improved release frequency from monthly to bi-weekly, ensuring on-time delivery against stringent regulatory
+deadlines.
+- `Led Data Engineering Chapter` for IB Markets Regulatory Reporting, governing 5+ regulatory
+frameworks `(MIFID-II, RTS23, EUBR/UKBR, SSD, SFTR)` — overseeing ingestion, reconciliation, and distribution
+of deal-store data for ~10 million+ daily trade & transaction records with full audit trail and zero regulatory
+breach incidents across a 3-year delivery window.
+- Designed and executed migration strategy from `Cloudera Data Platform to Azure Databricks`, leveraging Azure
+Data Factory, ADX, and Apache Flink — reducing data processing latency by ~50%, cutting infrastructure
+licensing costs by ~35%, and enabling elastic scaling for peak regulatory reporting windows without manual
+intervention.
+- Partnered with business, operations, and risk teams to identify and remediate 3 critical IT and operational risk
+items (ORI, MERS, SERA), delivering solutions within agreed timelines and achieving full closure with zero
+regulatory escalations — strengthening UBS's control framework for IB Markets technology.
+- Established architecture governance practices through structured design review sessions with SMEs and cross-
+functional teams, standardizing data engineering patterns and reducing rework cycles by ~25%, accelerating
+time-to-production for new pipeline features.
+
+### VICE PRESIDENT  
+**DATA & CLOUD TRANSFORMATION | JPMORGAN SERVICES | MUMBAI**  
+*May 2009 – Mar 2022*  
+- Spearheaded a 13-year as `Engineering Lead`, multi-phase enterprise data platform `(Investment Product &
+Portfolio Governance)` serving Product & Portfolio Governance reporting across global IB operations, leading
+end-to-end data ingestion, reconciliation, validation, and distribution pipelines processing millions of deal-store
+records daily with zero-defect regulatory
+- Built and managed a high-performing engineering team of 6–8 engineers, instituting Agile delivery practices,
+quality gates, and performance testing frameworks that improved overall team throughput by ~35% and
+reduced production incidents through proactive defect detection.
+- Developed the physical data model for Investment Product & Portfolio Governance data pipelines considering
+different functional & operational risk reporting. Drive the modernization of IPGC & UPGC Data Platform by
+moving to Cloud Foundry/AWS & Oracle Cloud Services
+- Led the strategic modernization of IPGC & UPGC Data Platform from on-premise to Cloud Foundry, AWS, and
+Oracle Cloud Services, reducing infrastructure costs by an estimated 30–40% and improving platform scalability
+to support 3× data volume growth without linear headcount addition.
+- Established architecture governance practices through structured design review sessions with SMEs and cross-
+functional teams, standardizing data engineering patterns and reducing rework cycles by ~25%, accelerating
+time-to-production for new pipeline features.
+
+### Sr. Software Engineer  
+**ACCENTURE SERVICES PVT LTD.**  
+*FEB 2005 – Apr 2009*  
+- Embedded with `Goldman Sachs Group` as an `Accenture engineer`, contributing to large-scale, mission-critical
+application development across IB technology systems — building production-grade, cloud-native
+microservices using Spring Boot and Spring Cloud deployed on AWS EC2 and S3, establishing the engineering
+foundation that underpins 21 years of Tier-1 banking technology delivery.
+- Participated in the full software development lifecycle, from requirements gathering to deployment.
+- Wrote clean, maintainable code and implemented unit tests to ensure code quality.
+- Resolved bugs and performed troubleshooting to maintain system functionality.
+- Worked closely with senior developers to improve technical skills and knowledge.
+
+---
+
+## Education
+
+### Bachelor of Engineering in Information Technology
+**University of Rajasthan**  
+*Jun 2001 – Jun 2005*  
+- Graduated with Honors
+- Relevant coursework: Data Structures, Algorithms, Database Systems, Web Development
+
+---
+
+## Skills
+
+- **Languages:** JavaScript, Python, Java, Sql
+- **AI/ML:** GenAI, Agentic AI, LLM, RAG, MCP, A2A, CrewAI, LangChain, LangGraph, Embeddings, VectorDB (Chromadb,FASSI)
+- **Cloud/Data:** HDFS, ADLS, AWS S3, ADX, ADF, Azure Databricks, Spark, Confluent Kafka, Flink
+- **Microservices:** SpringBoot, REST APIs, JWT, OAuth
+- **Databases:** MySQL, PostgreSQL, MongoDB
+- **Tools:** Git, Docker, Jenkins, AWS
+- **DevOps:** Docker, Kubernetes, EKS, AKS
+- **Methodologies:** Agile, Scrum, Test-Driven Development (TDD)
+
+---
+
+## Domain Knowledge
+- FINANCIAL PRODUCTS & PORTFOLIO RISK
+- MARKET REGULATORY REPORTING
+- GROUP COMPLIANCE & OPERATING RISK
+
+---
+
+## Professional Certifications
+
+- Databricks Datalake Platform — Databricks, APR 2026
+- Databricks AI Agents Fundamentals — Databricks, APR 2026
+- Databricks Generative AI Fundamentals — Databricks, APR 2025
+- Azure Cloud Fundamentals — Microsoft, APR 2025
+- Azure Data Fundamentals — Microsoft, APR 2025
+- Azure AI Fundamentals — Microsoft, APR 2025
+- AWS Solution Architect Associate — AWS, Jan 2022
+- Kubernetes Application Developer — Linux Foundation, Jan 2022
+- Certified Scrum Master — Scrum Alliance, APR 2015
+- Certification in Financial Market — NSE, APR 2008
+
+---
+
+## Interests
+
+- Open-source contribution
+- Tech blogging
+- Hiking and outdoor activities

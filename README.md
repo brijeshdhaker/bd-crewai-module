@@ -4,7 +4,7 @@ Welcome to the BdCrewaiModule Crew project, powered by [crewAI](https://crewai.c
 
 ## Installation
 
-Ensure you have Python >=3.10 <3.14 installed on your system. This project uses [UV](https://docs.astral.sh/uv/) for dependency management and package handling, offering a seamless setup and execution experience.
+Ensure you have Python >=3.10 <3.14 installed on your system. This project uses [UV](https://knowledge.astral.sh/uv/) for dependency management and package handling, offering a seamless setup and execution experience.
 
 First, if you haven't already, install uv:
 
@@ -46,7 +46,7 @@ The bd-crewai-module Crew is composed of multiple AI agents, each with unique ro
 ## Support
 
 For support, questions, or feedback regarding the BdCrewaiModule Crew or crewAI.
-- Visit our [documentation](https://docs.crewai.com)
+- Visit our [documentation](https://knowledge.crewai.com)
 - Reach out to us through our [GitHub repository](https://github.com/joaomdmoura/crewai)
 - [Join our Discord](https://discord.com/invite/X4JWnZnxPb)
 - [Chat with our docs](https://chatg.pt/DWjSBZn)

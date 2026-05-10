@@ -6,8 +6,6 @@
 #ipykernel
 #ipywidgets
 #ipython-sql
-#pymysql
-#jupysql
 #duckdb-engine
 #grpcio
 #google-search-results

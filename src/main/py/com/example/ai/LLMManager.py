@@ -38,7 +38,7 @@ class LLMManager:
             # LLM setup using litellm additional_params={"num_ctx":16384},
             return LLM(
                 model=f"ollama/{os.environ["OPENAI_MODEL_NAME"]}", 
-                base_url="http://localhost:11434", 
+                base_url=os.environ["OLLAMA_URL"], 
                 temperature=0.3,     # Controls randomness in output (0.0 to 1.0)
                 max_tokens=4096,     # Maximum number of tokens to generate
                 timeout=300,         # timeout for llm
@@ -49,13 +49,13 @@ class LLMManager:
         if type == 'groq' :
             return LLM(
                 model=f"groq/{os.environ["GROQ_MODEL_NAME"]}", 
-                base_url="https://api.groq.com/openai/v1"
+                base_url=os.environ["GROQ_ENDPOINT"]
             )
         # OpenAI llm client
         if type == 'openai' or type == 'hf':
             return LLM(
                 model=f"openai/{os.environ["OPENAI_MODEL_NAME"]}", 
-                base_url="http://localhost:11434/v1",
+                base_url=os.environ["OPENAI_API_BASE"],
                 temperature=0.3,     # Controls randomness in output (0.0 to 1.0)
                 max_tokens=4096,     # Maximum number of tokens to generate
                 timeout=300,         # timeout for llm

@@ -15,7 +15,7 @@ research_task:
 
 extract_images_task:
   description: >
-    Find all image urls from file 'documents/json/designs-research.json' using image_fetch_tool.
+    Find all image urls from file 'knowledge/json/designs-research.json' using image_fetch_tool.
   expected_output: >
     A valid json document containing list of following attributes
     - title

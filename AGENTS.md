@@ -15,8 +15,8 @@
 **BEFORE writing or modifying any CrewAI code**, you MUST:
 1. **Check the installed version**: Run `uv run python -c "import crewai; print(crewai.__version__)"` to get the exact version in use.
 2. **Check PyPI for latest**: Fetch `https://pypi.org/pypi/crewai/json` to see the latest available version. If the installed version is behind, inform the user.
-3. **Read the changelog**: Fetch `https://docs.crewai.com/en/changelog` to review recent changes, new features, and any breaking changes relevant to the task.
-4. **Consult the relevant docs page**: Before implementing a feature (e.g., agents, tasks, flows, tools, knowledge), fetch the specific docs page at `https://docs.crewai.com/en/concepts/<feature>` to get the current API.
+3. **Read the changelog**: Fetch `https://knowledge.crewai.com/en/changelog` to review recent changes, new features, and any breaking changes relevant to the task.
+4. **Consult the relevant docs page**: Before implementing a feature (e.g., agents, tasks, flows, tools, knowledge), fetch the specific docs page at `https://knowledge.crewai.com/en/concepts/<feature>` to get the current API.
 5. **Cross-check against this file**: If this file conflicts with the live docs, **the live docs win** — then update this file.
 
 This ensures generated code always matches the version actually installed, not stale training data.
@@ -780,7 +780,7 @@ Code: CodeInterpreterTool, CodeDocsSearchTool, GithubSearchTool
 Media: DALL-E Tool, YoutubeChannelSearchTool, YoutubeVideoSearchTool
 Other: RagTool, ApifyActorsTool, ComposioTool, LlamaIndexTool
 
-Always check https://docs.crewai.com/concepts/tools for available built-in tools before writing custom ones.
+Always check https://knowledge.crewai.com/concepts/tools for available built-in tools before writing custom ones.
 
 ---
 
