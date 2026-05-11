@@ -16,6 +16,17 @@
       "justMyCode": false
     },
     {
+      "name": "Python Debugger: Chainlit",
+      "type": "debugpy",
+      "request": "launch",
+      "module": "chainlit",
+      "console": "integratedTerminal",
+      "args": ["run", "${file}", "--server.port", "9500"],
+      "jinja": true,
+      "envFile": "${workspaceFolder}/.env",
+      "justMyCode": false
+    },
+    {
       "name": "Python Debugger: FastAPI",
       "type": "debugpy",
       "request": "launch",
