@@ -22,10 +22,10 @@ crewai install
 
 **Add your `OPENAI_API_KEY` into the `.env` file**
 
-- Modify `src/bd-crewai-module/config/agents.yaml` to define your agents
-- Modify `src/bd-crewai-module/config/tasks.yaml` to define your tasks
-- Modify `src/bd-crewai-module/crew.py` to add your own logic, tools and specific args
-- Modify `src/bd-crewai-module/main.py` to add custom inputs for your agents and tasks
+- Modify `src/main/py/com/example/ai/apps/crewai/config/agents.yaml` to define your agents
+- Modify `src/main/py/com/example/ai/apps/crewai/config/tasks.yaml` to define your tasks
+- Modify `src/main/py/com/example/ai/apps/crewai/crew.py` to add your own logic, tools and specific args
+- Modify `src/main/py/com/example/ai/apps/crewai/main.py` to add custom inputs for your agents and tasks
 
 ## Running the Project
 
@@ -74,24 +74,24 @@ Let's create wonders together with the power and simplicity of crewAI.
 ![](./knowledge/images/RAG_001.png)
 
 
-#
-# Gmail Server MCP Server
-#
+### Gmail Server MCP Server
+
+```
 send an email notification with folloing details: 
 --recipient 'brijeshdhaker@gmail.com'
 --subject 'AI Notification Test - 2026-04-17#{id}'
 --body 'Hello {name},\n\n This is automated AI message send using AI Tools #Message-{id}'
 --params {"id":"2001", "name":"Brijesh"}
+```
+### SQL Server MCP Server
 
-#
-# SQL Server MCP Server
-#
+```
 fetch results for provided complex sql query with parameters :
 --template select `NAME`, `AGE`, `ADDRESS`, CONVERT(SALARY, FLOAT) AS `SALARY` from CUSTOMERS WHERE ID = {id}
 --params {"id":"1"}
+```
+### Install Application
 
-
-#
-# Install Application
-#
+```
 python -m pip install -e .
+```
