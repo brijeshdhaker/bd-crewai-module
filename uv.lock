@@ -354,7 +354,7 @@ dev = [
 [package.metadata]
 requires-dist = [
     { name = "chromadb", specifier = ">=1.1.1" },
-    { name = "crewai", extras = ["litellm", "openai", "tools"], specifier = "==1.14.3" },
+    { name = "crewai", extras = ["litellm", "tools"], specifier = "==1.14.3" },
     { name = "crewai-tools", extras = ["mcp"], specifier = ">=1.14.3" },
     { name = "docx2txt", specifier = ">=0.9" },
     { name = "faiss-cpu", specifier = ">=1.13.2" },

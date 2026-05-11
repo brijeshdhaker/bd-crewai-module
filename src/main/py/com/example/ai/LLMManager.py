@@ -12,12 +12,13 @@ class LLMManager:
     """
     """
     @classmethod
-    def get_agent(cls, provider: str = 'openai'):
+    def get_agent(cls, provider: str = 'openai', **kwarg):
         load_dotenv()
         # Initialize models
         return create_agent(
             model=f"{provider}:{os.environ["OPENAI_MODEL_NAME"]}",
-            system_prompt="You are a helpful assistant."
+            system_prompt="You are a helpful assistant.",
+            **kwarg
         )
     
     @classmethod
@@ -31,7 +32,7 @@ class LLMManager:
     
     #
     @classmethod
-    def create_llm(cls, type: str = 'openai') -> LLM :
+    def create_llm(cls, type: str = 'openai', **kwargs) -> LLM :
         load_dotenv()
         # Ollama llm client
         if type == 'ollama' :
@@ -44,12 +45,14 @@ class LLMManager:
                 timeout=300,         # timeout for llm
                 #seed=21,            # Ensures consistent outputs
                 #top_p=0.9           # Controls diversity of output (0.0 to 1.0)
+                **kwargs
             )
         # Groq llm client
         if type == 'groq' :
             return LLM(
                 model=f"groq/{os.environ["GROQ_MODEL_NAME"]}", 
-                base_url=os.environ["GROQ_ENDPOINT"]
+                base_url=os.environ["GROQ_ENDPOINT"],
+                **kwargs
             )
         # OpenAI llm client
         if type == 'openai' or type == 'hf':
@@ -61,4 +64,5 @@ class LLMManager:
                 timeout=300,         # timeout for llm
                 #seed=21,            # Ensures consistent outputs
                 #top_p=0.9           # Controls diversity of output (0.0 to 1.0)
+                **kwargs
             )
