@@ -201,5 +201,5 @@ def create_memory(type: str = 'openai') -> Memory :
     
     return Memory(
         llm=_llm,
-        embedder=_embedder
+        embedder=_embedding_model_st
     )

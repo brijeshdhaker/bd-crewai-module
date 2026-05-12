@@ -21,7 +21,7 @@
       "request": "launch",
       "module": "chainlit",
       "console": "integratedTerminal",
-      "args": ["run", "${file}", "--server.port", "9500"],
+      "args": ["run", "${file}", "--port", "9500", "-w"],
       "jinja": true,
       "envFile": "${workspaceFolder}/.env",
       "justMyCode": false
@@ -32,7 +32,7 @@
       "request": "launch",
       "module": "uvicorn",
       "console": "integratedTerminal",
-      "args": ["com.example.ai.apps.mysql_chat.main:app", "--reload"],
+      "args": ["com.example.ai.apps.mysql_chat.main:app", "--reload", "--host", "0.0.0.0", "--port", "8000" ],
       "jinja": true,
       "envFile": "${workspaceFolder}/.env",
       "justMyCode": false
