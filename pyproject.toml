@@ -8,7 +8,7 @@ dependencies = [
     "chainlit>=2.11.1",
     "chromadb>=1.1.1",
     "crewai-tools[mcp]>=1.14.3",
-    "crewai[litellm,tools]==1.14.3",
+    "crewai[file-processing,litellm,tools]==1.14.3",
     "docx2txt>=0.9",
     "faiss-cpu>=1.13.2",
     "fastapi[standard]>=0.136.1",
