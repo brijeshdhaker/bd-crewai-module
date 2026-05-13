@@ -1,9 +1,12 @@
+import os
 import itertools
 import mysql.connector
 
 
 class MysqlProcessor(object):
-
+    """
+    MysqlProcessor
+    """
     connection = None
 
     # The init method or constructor
@@ -11,9 +14,9 @@ class MysqlProcessor(object):
         try:
             #
             MysqlProcessor.connection = mysql.connector.connect(
-                user="operate",
-                password="paSSW0rd",
-                host="mysqlserver",
+                user=os.environ.get("MYSQL_ADMIN_USER"),
+                password=os.environ.get("MYSQL_ADMIN_PASSWORD"),
+                host="mysqlserver.sandbox.net",
                 port="3306",
                 database="SANDBOXDB",
                 autocommit=False
