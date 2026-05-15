@@ -1,0 +1,51 @@
+# Use postgres/example user/password credentials
+# psql -h postgres.sandbox.net -U postgres -d SANDBOXDB -W paSSW0rd
+services:
+
+  postgres:
+    image: postgres:17.10-bookworm
+    container_name: postgres
+    hostname: postgres.sandbox.net
+    restart: always
+    # set shared memory limit when using docker compose
+    shm_size: 128mb
+    # or set shared memory limit when deploy via swarm stack
+    ports:
+      - "5432:5432"    
+    volumes:
+      - sandbox_apps_path:/apps
+      - /apps/sandbox/postgres/data:/var/lib/postgresql/data
+      - ./conf/postgres/my-postgres.conf:/etc/postgresql/postgresql.conf
+      #- ./conf/postgres/init-user-db.sh:/docker-entrypoint-initdb.d/init-user-db.sh
+      - type: tmpfs
+        target: /dev/shm
+        tmpfs:
+          size: 134217728 # 128*2^20 bytes = 128Mb
+    secrets:
+      - postgres-passwd    
+    env_file:
+      - ./conf/postgres/envvars
+      
+
+  # adminer:
+  #   image: adminer
+  #   restart: always
+  #   ports:
+  #     - 8080:8080
+
+#
+secrets:
+  postgres-passwd:
+    file: ./conf/postgres/password.txt
+
+#
+volumes:
+  #
+  sandbox_apps_path:
+    external: true
+#
+networks:
+  default:
+    external: true
+    driver: bridge
+    name: sandbox.net
