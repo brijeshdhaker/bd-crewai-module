@@ -95,3 +95,16 @@ fetch results for provided complex sql query with parameters :
 ```
 python -m pip install -e .
 ```
+
+### Create Py Whl files
+```
+uv build
+uv build --wheel
+uv pip install dist/bd_crewai_module-0.1.0-py3-none-any.whl
+```
+
+###
+```
+pip install dist/bd_crewai_module-0.1.0-py3-none-any.whl
+python -m pip install dist/bd_crewai_module-0.1.0-py3-none-any.whl
+```

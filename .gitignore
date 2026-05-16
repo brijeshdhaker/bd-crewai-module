@@ -9,3 +9,4 @@ logs/*
 .files
 credentials.json
 token.json
+dist/
