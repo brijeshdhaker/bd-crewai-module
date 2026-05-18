@@ -1,5 +1,13 @@
+#
+# docker compose -f docker-compose.yml up -d mysqlserver
+# docker compose -f docker-compose.yml down mysqlserver
+#
+# docker exec -it mysqlserver mysql --user=root --password=$MYSQL_ADMIN_PASSWORD --host=localhost
+# docker exec -it mysqlserver mysql --user=root --password=$MYSQL_ADMIN_PASSWORD --host=mysqlserver.sandbox.net --database=SANDBOXDB
+#
+
 # Use postgres/example user/password credentials
-# psql -h postgres.sandbox.net -U postgres -d SANDBOXDB -W paSSW0rd
+# psql -h postgres.sandbox.net -U postgres -d SANDBOXDB -W $POSTGRES_PASSWORD
 # CREATE EXTENSION vector;
 # SELECT * FROM pg_extension;
 # CREATE TABLE items (id bigserial PRIMARY KEY, embedding vector(3));
@@ -8,7 +16,34 @@
 # SELECT * FROM items ORDER BY embedding <-> '[3,1,2]' LIMIT 5;
 
 services:
-
+  #
+  # Mysql Server
+  #
+  mysqlserver:
+    image: mysql:8.0.33
+    container_name: mysqlserver
+    hostname: mysqlserver.sandbox.net
+    restart: always
+    ports:
+      - "3306:3306"
+    command: "mysqld --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci"
+    volumes:
+      - sandbox_apps_path:/apps
+      - sandbox_mysql_data:/var/lib/mysql
+      - ./conf/mysql:/etc/mysql/conf.d
+    secrets:
+      - mysql-root-password
+    env_file:
+      - ./conf/mysql/envvars
+    healthcheck:
+      test: "/usr/bin/mysql --user=root --password=$$MYSQL_ADMIN_PASSWORD --execute \"SHOW DATABASES;\""
+      timeout: 20s
+      retries: 10
+      interval: 10s
+    extra_hosts:
+      - "docker.sandbox.net:172.18.0.1"
+      
+  #
   postgres:
     image: pgvector/pgvector:pg17
     container_name: postgresql
@@ -42,14 +77,20 @@ services:
 
 #
 secrets:
+  mysql-root-password:
+    file: ./conf/mysql/password.txt
   postgres-passwd:
     file: ./conf/postgres/password.txt
 
 #
 volumes:
+  #  
+  sandbox_mysql_data:
+    external: true
   #
   sandbox_apps_path:
     external: true
+
 #
 networks:
   default:
