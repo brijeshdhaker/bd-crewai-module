@@ -26,7 +26,6 @@
     "python.testing.unittestArgs": [
         "-v", "-s", "${workspaceFolder}/src/test/py", "-p", "Test*.py"
     ],
-    "postman.settings.dotenv-detection-notification-visibility": false,
     "chat.mcp.discovery.enabled": {
         "claude-desktop": true,
         "windsurf": true,
